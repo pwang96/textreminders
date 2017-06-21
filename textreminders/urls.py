@@ -19,6 +19,6 @@ from . import views
 admin.autodiscover()
 
 urlpatterns = [url(r'^admin/', include(admin.site.urls)),
-               url(r'', views.home),
+               url(r'^$', views.home),
                url(r'^sms/$', views.sms)
                ]
