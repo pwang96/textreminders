@@ -15,6 +15,9 @@ def home(request):
 @csrf_exempt
 def sms(request):
     body = request.GET.get('Body', '')
+    if not body:
+        return HttpResponse('<p> Hi! </p>', content_type='text/html')
+
     nb = int('nb' in body.lower())
     train = re.findall('[EF]', body)[0]
     stop = re.findall('to (.*)$', body)[0]
@@ -23,7 +26,7 @@ def sms(request):
     sched = [datetime.strptime(t, format) for t in trains[train][nb][stop]]
     now = datetime.now()
     for time in sched:
-        if (time.hour == now.hour and time.min - now.min > 15) or time.hour > now.hour:
+        if (time.hour == now.hour and time.minute - now.minute > 15) or time.hour > now.hour:
             next_train = time.strftime('%H:%M')
             break
     else:
