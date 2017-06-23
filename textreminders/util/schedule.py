@@ -2,6 +2,9 @@ DC_STATIONS = {
     'Farragut North': 'A02',
     'Rockville': 'A14',
     'Tenleytown-Au': 'A07',
+    'Tenleytown': 'A07',                        # alias
+    'American University': 'A07',               # alias
+    'Au': 'A07',                                # alias
     'Brookland-Cua': 'B05',
     'Noma-Gallaudet U': 'B35',
     'Woodley Park-Zoo/Adams Morgan': 'A04',
@@ -19,9 +22,11 @@ DC_STATIONS = {
     'Silver Spring': 'B08',
     'Shady Grove': 'A15',
     'Grosvenor-Strathmore': 'A11',
+    'Grosvenor': 'A11',                         # alias
     'White Flint': 'A12',
     'Wheaton': 'B10',
     'Gallery Pl-Chinatown': 'B01',
+    'Gallery Place': 'B01',                     # alias
     'Union Station': 'B03',
     'Judiciary Square': 'B02',
     'Friendship Heights': 'A08',
@@ -33,6 +38,7 @@ DC_STATIONS = {
     'Pentagon': 'C07',
     'Eisenhower Avenue': 'C14',
     'Ronald Reagan Washington National Airport': 'C10',
+    'Ronald Reagan': 'C10',                     # alias
     'Braddock Road': 'C12',
     'Crystal City': 'C09',
     'Archives-Navy Memorial-Penn Quarter': 'F02',
@@ -44,6 +50,7 @@ DC_STATIONS = {
     'Congress Heights': 'F07',
     'West Hyattsville': 'E07',
     'College Park-U Of Md': 'E09',
+    'College Park': 'E09',                      # alias
     'Navy Yard-Ballpark': 'F05',
     'Greenbelt': 'E10',
     'Naylor Road': 'F09',
@@ -66,6 +73,7 @@ DC_STATIONS = {
     'Benning Road': 'G01',
     'Smithsonian': 'D02',
     'Federal Center SW': 'D04',
+    'Federal Center': 'D04',                    # alias
     'Stadium-Armory': 'D08',
     'McPherson Square': 'C02',
     'Franconia-Springfield': 'J03',
