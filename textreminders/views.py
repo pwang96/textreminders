@@ -1,13 +1,11 @@
-from datetime import datetime
+import json
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.views.decorators.csrf import csrf_exempt
 
-from textreminders.util import ResponseHandler
-from textreminders.util.schedule import TRAINS
-
-format = '%I%M%p'
+from textreminders.util import ResponseHandler, add_verified_number
+from textreminders.forms import NumberForm
 
 
 def home(request):
@@ -22,14 +20,25 @@ def sms(request):
 
     rh = ResponseHandler(body)
     twiml = rh.create_response()
-    # move this somewhere else
-
-    # now = datetime.now()
-    # for time in sched:
-    #     if (time.hour == now.hour and time.minute - now.minute > 15) or time.hour > now.hour:
-    #         next_train = time.strftime('%H:%M')
-    #         break
-    # else:
-    #     next_train = sched[0].strftime('%H:%M')
 
     return HttpResponse(twiml, content_type='text/xml')
+
+
+@csrf_exempt
+def new_number(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NumberForm(request.POST)
+
+        print(form)
+        if form.is_valid():
+            data = form.cleaned_data
+            verification_code = add_verified_number.add_verified_number(data['your_number'])
+            return render(request,
+                          'number.html', {'code': verification_code},
+                          content_type='text/html')
+        else:
+            print("INVALID FORM")
+
+    return render_to_response('home.html')

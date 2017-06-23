@@ -20,5 +20,6 @@ admin.autodiscover()
 
 urlpatterns = [url(r'^admin/', include(admin.site.urls)),
                url(r'^$', views.home),
-               url(r'^sms/$', views.sms)
+               url(r'^sms/$', views.sms),
+               url(r'^number/$', views.new_number)
                ]

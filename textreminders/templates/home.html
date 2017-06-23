@@ -91,6 +91,12 @@
                 <span class="text-muted">here!</span>
             </h2>
             <p class="lead">Hopefully, this project will be expanded to more cities!</p>
+            <form action="/number/" method="post" id="form">
+                <label for="your_number">Your number: </label>
+                <input id="your_number" type="text" name="your_number" value="{{ number }}">
+                <input type="submit" value="OK">
+            </form>
+
         </div>
 
         <hr class="featurette-divider">
