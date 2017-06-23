@@ -131,7 +131,7 @@ class ResponseHandler(object):
             return twiml
 
         for direction in self.directions:
-            twiml += 'Direction {}:'.format(direction)
+            twiml += 'Direction {}: '.format(direction)
             twiml += ', '.join([str(x) for x in self.time_left[direction]])
             twiml += '\n'
         twiml += '</Message></Response>'
