@@ -44,31 +44,43 @@ class ResponseHandler(object):
                 self.error = 'FORMAT_ERROR'
                 return
 
-            with open(os.path.join(path, 'stop_times_sorted.json')) as f:
-                d = json.load(f)
-            try:
-                times = d[self.station.title() + ' Station']
-            except KeyError:
-                self.error = 'KEY_ERROR'
-                return
-
-            self.directions = list(times.keys())
+            self.directions = schedule.DENVER_TRAIN_DIRECTIONS[self.train]
 
             now = datetime.now()
-            for dir in self.directions:
-                count = 0
-                for i in range(len(times[dir])):
-                    train_arrival_time = datetime.strptime(times[dir][i], '%H:%M:%S')
-                    if train_arrival_time.hour == now.hour and train_arrival_time.minute > now.minute or train_arrival_time.hour > now.hour:
-                        if train_arrival_time == now.hour:
-                            self.time_left[dir].append(train_arrival_time.minute - now.minute)
-                        else:
-                            self.time_left[dir].append(train_arrival_time.minute - now.minute + 60)
-                        count += 1
-                        if count == 3:
-                            break
+            day = now.weekday()
 
-        elif 'dc' in self.body.lower():
+            # get the correct schedule
+            if 0 <= day <= 3:
+                day_of_travel = 'MONTHURS'
+            elif day == 4:
+                day_of_travel = 'FRI'
+            # elif day == 5:
+            #     day_of_travel = 'SAT'
+            else:
+                day_of_travel = 'SAT'
+
+            # TODO: if it's 11:59 PM, show the trains in the morning instead of showing no trains
+            # TODO: scrape the rest of the files....
+            for direction in self.directions:
+                schedule_path = os.path.join(path, self.train + '_' + direction + '_' + day_of_travel + '.json')
+                with open(schedule_path) as f:
+                    data = json.load(f)
+
+                    train_times = data[self.station]
+                    count = 0  # we want the next THREE trains
+                    for t_time in train_times:
+                        time = datetime.strptime(t_time, '%H:%M')
+                        if time.hour > now.hour or time.hour == now.hour and time.minute > now.minute:
+                            if time.hour > now.hour:
+                                self.time_left[direction].append(time.minute - now.minute + 60)
+                            else:
+                                self.time_left[direction].append(time.minute - now.minute)
+                            print(time, now)
+                            count += 1
+                            if count == 3:
+                                break
+
+        elif 'dc' in self.body.lower() or 'd.c.' in self.body.lower():
             self.city = 'DC'
             regex = '(red|silver|orange|yellow|blue|green) (.*)$'
             parsed = re.findall(regex, self.body.lower())
@@ -97,6 +109,7 @@ class ResponseHandler(object):
                 data = response.read().decode('utf-8')
                 json_data = json.loads(data)
                 for train in json_data['Trains']:
+                    print(train)
                     if train['Line'] == self.train:
                         self.directions.add(train['Destination'])
                         self.time_left[train['Destination']].append(train['Min'])
@@ -122,6 +135,7 @@ class ResponseHandler(object):
             elif self.error == 'NO_TRAINS_ERROR':
                 twiml += 'Unfortunately, no trains are listed as coming :('
             elif self.error == 'KEY_ERROR':
+                # TODO: return a list of all valid station names for the desired line
                 twiml += 'Your station name might be incorrect... Try typing it again '
             elif self.error == 'API_ERROR':
                 twiml += 'There was an API failure :( Check back in 10 minutes!'

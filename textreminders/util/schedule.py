@@ -111,3 +111,15 @@ DC_TRAINS = {
 
 DC_LIVE_TRAIN_URL = 'https://www.wmata.com/js/nexttrain/nexttrain.html#'
 
+DENVER_TRAIN_DIRECTIONS = {
+    'A': ['EB', 'WB'],
+    'B': ['EB', 'WB'],
+    'C': ['NB'],
+    'D': ['NB', 'SB'],
+    'E': ['NB', 'SB'],
+    'F': ['NB', 'SB'],
+    'H': ['NB', 'SB'],
+    'R': ['NB', 'SB'],
+    'W': ['EB', 'WB']
+}
+
