@@ -28,6 +28,7 @@ DC_STATIONS = {
     'Gallery Pl-Chinatown': 'B01',
     'Gallery Place': 'B01',                     # alias
     'Union Station': 'B03',
+    'Union': 'B03',                             # alias
     'Judiciary Square': 'B02',
     'Friendship Heights': 'A08',
     'Medical Center': 'A10',
@@ -109,12 +110,25 @@ DC_TRAINS = {
     'silver': 'SV'
 }
 
+DC_TRAIN_STOPS = {
+    'red': ['Shady Grove', 'Rockville', 'Twinbrook', 'White Flint', 'Grosvenor-Strathmore', 'Medical Center',
+            'Bethesda', 'Friendship-Heights', 'Tenleytown-Au', 'Van Ness-Udc', 'Cleveland Park', 'Woodley Park',
+            'Dupont Circle', 'Farragut North', 'Metro Center', 'Gallery Place', 'Judiciary Square',
+            'Union Station', 'Noma-Gallaudet U', 'Rhode Island Avenue-Brentwood', 'Brookland-Cua', 'Fort Totten',
+            'Takoma', 'Silver Spring', 'Forest Glen', 'Wheaton', 'Glenmont'],
+    'yellow': [],
+    'green': ['College Park-U Of Md'],
+    'blue': [],
+    'orange': [],
+    'silver': []
+}
+
 DC_LIVE_TRAIN_URL = 'https://www.wmata.com/js/nexttrain/nexttrain.html#'
 
 DENVER_TRAIN_DIRECTIONS = {
     'A': ['EB', 'WB'],
     'B': ['EB', 'WB'],
-    'C': ['NB'],
+    'C': ['NB', 'SB'],
     'D': ['NB', 'SB'],
     'E': ['NB', 'SB'],
     'F': ['NB', 'SB'],
@@ -123,3 +137,34 @@ DENVER_TRAIN_DIRECTIONS = {
     'W': ['EB', 'WB']
 }
 
+DENVER_TRAIN_STOPS = {
+    'A': ['Denver Airport', '61st & Pena', '40th Ave & Airport Blvd-Gateway Park',
+          'Peoria', 'Central Park', '40th & Colorado', '38th & Blake', 'Union'],
+    'B': ['Westminster', 'Union'],
+    'C': ['Union', 'Pepsi Center - Elitch Gardens', 'Sports Authority Field at Mile High',
+          'Auraria West', '10th & Osage', 'Alameda', 'I-25 & Broadway', 'Evans',
+          'Englewood', 'Oxford', 'Littleton Downtown', 'Littleton Mineral'],
+    'D': ['Littleton Mineral', 'Littleton Downtown', 'Oxford', 'Englewood', 'Evans', 'I-25 & Broadway', 'Alameda',
+          '10th & Osage', 'Colfax at Auraria', 'Theatre District - Convention Center', '16th & California',
+          '18th & California', '20th & Welton', '25th & Welton', '27th & Welton', '30th & Downing'],
+    'E': ['Lincoln', 'County Line', 'Dry Creek', 'Arapahoe at Village Center', 'Orchard', 'Belleview', 'Southmoor',
+          'Yale', 'Colorado', 'University of Denver', 'Louisiana - Pearl', 'I-25 & Broadway', 'Alameda', '10th & Osage',
+          'Auraria West', 'Sports Authority Field at Mile High', 'Pepsi Center - Elitch Gardens', 'Union'],
+    'F': ['Lincoln', 'County Line', 'Dry Creek', 'Arapahoe at Village Center', 'Orchard', 'Belleview', 'Southmoor',
+          'Yale', 'Colorado', 'University of Denver', 'Louisiana - Pearl', 'I-25 & Broadway', 'Alameda', '10th & Osage',
+          'Colfax at Auraria', 'Theatre District - Convention Center', '16th & California', '18th & California'],
+    'H': ['Florida', 'Iliff', 'Nine Mile', 'Dayton', 'Southmoor', 'Yale', 'Colorado', 'University of Denver',
+          'Louisiana - Pearl', 'I-25 & Broadway', 'Alameda', '10th & Osage', 'Colfax at Auraria',
+          'Theatre District - Convention Center', '16th & California', '18th & California'],
+    'R': ['Lincoln', 'County Line', 'Dry Creek', 'Arapahoe at Village Center', 'Orchard', 'Belleview', 'Dayton',
+          'Nine Mile', 'Iliff', 'Florida', 'Aurora Metro Center Stn', '2nd & Abilene',
+          '13th Avenue', 'Colfax', 'Fitzsimons', 'Peoria'],
+    'W': ['Jefferson County Government Center - Golden', 'Red Rocks College', 'Federal Center', 'Oak', 'Garrison',
+          'Lakewood-Wadsworth', 'Lamar', 'Sheridan', 'Perry', 'Knox', 'Decatur - Federal', 'Auraria West',
+          'Sports Authority Field at Mile High', 'Pepsi Center - Elitch Gardens', 'Union']
+}
+
+STOPS = {
+    'Denver': DENVER_TRAIN_STOPS,
+    'DC': DC_TRAIN_STOPS
+}

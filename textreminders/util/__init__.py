@@ -62,11 +62,15 @@ class ResponseHandler(object):
             # TODO: if it's 11:59 PM, show the trains in the morning instead of showing no trains
             # TODO: scrape the rest of the files....
             for direction in self.directions:
-                schedule_path = os.path.join(path, self.train + '_' + direction + '_' + day_of_travel + '.json')
+                train_path = 'Denver/' + self.train + '_' + direction + '_' + day_of_travel + '.json'
+                schedule_path = os.path.join(path, train_path)
                 with open(schedule_path) as f:
                     data = json.load(f)
-
-                    train_times = data[self.station]
+                    try:
+                        train_times = data[self.station]
+                    except KeyError:
+                        self.error = 'KEY_ERROR'
+                        return
                     count = 0  # we want the next THREE trains
                     for t_time in train_times:
                         time = datetime.strptime(t_time, '%H:%M')
@@ -75,7 +79,6 @@ class ResponseHandler(object):
                                 self.time_left[direction].append(time.minute - now.minute + 60)
                             else:
                                 self.time_left[direction].append(time.minute - now.minute)
-                            print(time, now)
                             count += 1
                             if count == 3:
                                 break
@@ -109,7 +112,6 @@ class ResponseHandler(object):
                 data = response.read().decode('utf-8')
                 json_data = json.loads(data)
                 for train in json_data['Trains']:
-                    print(train)
                     if train['Line'] == self.train:
                         self.directions.add(train['Destination'])
                         self.time_left[train['Destination']].append(train['Min'])
@@ -126,6 +128,7 @@ class ResponseHandler(object):
         Uses the instance variables to create the xml response
         :return: XML object
         """
+        import textreminders.util.schedule as schedule
         twiml = '<Response><Message>'
         if self.error:
             print(self.body, self.city, self.train, self.station, self.directions, self.time_left)
@@ -135,8 +138,8 @@ class ResponseHandler(object):
             elif self.error == 'NO_TRAINS_ERROR':
                 twiml += 'Unfortunately, no trains are listed as coming :('
             elif self.error == 'KEY_ERROR':
-                # TODO: return a list of all valid station names for the desired line
-                twiml += 'Your station name might be incorrect... Try typing it again '
+                possible_trains = [t for t in schedule.STOPS[self.city][self.train] if t[0] == self.station[0]]
+                twiml += 'Did you mean {}? Check the spelling of your station!'.format(possible_trains)
             elif self.error == 'API_ERROR':
                 twiml += 'There was an API failure :( Check back in 10 minutes!'
 
