@@ -34,7 +34,7 @@ def new_number(request):
         print(form)
         if form.is_valid():
             data = form.cleaned_data
-            verification_code = add_verified_number.add_verified_number(data['your_number'])
+            verification_code = add_verified_number.add_verified_number(data['your_number'], data['your_name'])
             return render(request,
                           'number.html', {'code': verification_code},
                           content_type='text/html')

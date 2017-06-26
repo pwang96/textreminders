@@ -76,10 +76,10 @@
         <!-- First Featurette -->
         <div class="featurette" id="about">
             <img class="featurette-image img-circle img-responsive pull-right" src="http://www.liveurbandenver.com/thumbs/416x416/uploads/101.39.jpg">
-            <h2 class="featurette-heading">Denver RTD Lightrail
+            <h2 class="featurette-heading">Denver Lightrail and DC Metro
                 <span class="text-muted">currently supported!</span>
             </h2>
-            <p class="lead">Schedules for all the lightrail tracks are being uploaded!</p>
+            <p class="lead">Train schedules are just a text away!</p>
         </div>
 
         <hr class="featurette-divider">
@@ -92,11 +92,14 @@
             </h2>
             <p class="lead">Hopefully, this project will be expanded to more cities!</p>
             <form action="/number/" method="post" id="form">
+                <label for="your_name">Your name: </label>
+                <input id="your_name" type="text" name="your_name" value="{{ name }}">
                 <label for="your_number">Your number: </label>
                 <input id="your_number" type="text" name="your_number" value="{{ number }}">
                 <p>Number must be in the form '+12223334444'</p>
                 <input type="submit" value="OK">
             </form>
+            <p class="lead">After signing up, you can start texting! Scroll down for instructions.</p>
 
         </div>
 

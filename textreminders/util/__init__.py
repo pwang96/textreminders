@@ -138,8 +138,8 @@ class ResponseHandler(object):
             elif self.error == 'NO_TRAINS_ERROR':
                 twiml += 'Unfortunately, no trains are listed as coming :('
             elif self.error == 'KEY_ERROR':
-                possible_trains = [t for t in schedule.STOPS[self.city][self.train] if t[0] == self.station[0]]
-                twiml += 'Did you mean {}? Check the spelling of your station!'.format(possible_trains)
+                alt = [t for t in schedule.STOPS[self.city][self.train] if t[0].lower() == self.station[0].lower()]
+                twiml += 'Did you mean {}? Check the spelling of your station!'.format(alt)
             elif self.error == 'API_ERROR':
                 twiml += 'There was an API failure :( Check back in 10 minutes!'
 
